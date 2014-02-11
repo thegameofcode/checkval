@@ -97,7 +97,7 @@ function (p_value) {
 			}
 		,
 			notnull : {
-				regex : function (p_val) { console.log('_____isNotNull', p_val, !isNull(p_val)); return !isNull(p_val); }
+				regex : function (p_val) { return !isNull(p_val); }
 			,	err : 'invalid null value'
 			}
 		,

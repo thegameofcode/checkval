@@ -1,0 +1,13 @@
+{
+  "name": "checkval",
+  "version": "0.0.1",
+  "description": "",
+  "author": "IGZjonasdacruz",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0",
+    "should": "~2.1.0"
+  }
+}

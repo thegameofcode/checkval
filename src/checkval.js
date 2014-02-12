@@ -142,6 +142,7 @@ function (p_value) {
 	,	isAlpha 		: function (throwError) { check(validation.alpha, throwError); }
 	,	isAlphanumeric 	: function (throwError) { check(validation.alphanumeric, throwError); }
 	,	isEmail 		: function (throwError) { check(validation.email, throwError); }
+	,	isUUID 			: function (throwError) { check(validation.uuid, throwError); }
 	}
 
 }

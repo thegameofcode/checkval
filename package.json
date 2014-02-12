@@ -1,7 +1,7 @@
 {
 	"name": "checkval"
 ,	"version": "0.0.1"
-,	"main": "./src/checkval"
+,	"main": "src/checkval.js"
 ,	"description": ""
 ,	"author": { 
 		"name" : "IGZjonasdacruz" 

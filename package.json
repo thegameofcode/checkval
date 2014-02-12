@@ -1,16 +1,23 @@
 {
-  "name": "checkval",
-  "version": "0.0.1",
-  "description": "",
-  "author": "IGZjonasdacruz",
-  "license": "MIT",
-  "dependencies": {
-  },
-  "devDependencies": {
-    "mocha": "~1.14.0",
-    "should": "~2.1.0"
-  }
-  , "main" : "./src/checkval"
-  , "repository": { "type": "git", "url": "git://github.com/IGZjonasdacruz/checkval.git" }
-  , "homepage": "https://github.com/IGZjonasdacruz/checkval"
+	"name": "checkval"
+,	"version": "0.0.1"
+,	"main": "./src/checkval"
+,	"description": ""
+,	"author": { 
+		"name" : "IGZjonasdacruz" 
+	}
+,	"license": "MIT"
+,	"dependencies": { }
+,	"devDependencies": {
+		"mocha": "~1.14.0"
+	,	"should": "~2.1.0"
+	}
+,	"repository": {
+		"type": "git"
+	,	"url": "git://github.com/IGZjonasdacruz/checkval.git"
+	}
+,	"bugs" : {
+		"url": "https://github.com/IGZjonasdacruz/checkval/issues"
+	}
+,	"homepage": "https://github.com/IGZjonasdacruz/checkval"
 }

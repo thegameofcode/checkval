@@ -136,6 +136,51 @@ function (p_value) {
 		return true;
 	}
 
+	/**
+	 * Check if the string's length falls in a range.
+	 * 
+	 * @param  {boolean} throwError indicates if throws error
+	 * @param  {number} min        min len
+	 * @param  {number} [max]      max len (optional)
+	 * @return {boolean}
+	 */
+	function checkLen (throwError, min, max) {
+
+		if ( isNull(value) ) {
+			if ( throwError ) {
+				throw new Error("value is null");
+			}
+			return false;
+		}
+
+		if ( max && min > max ) {
+			if ( throwError ) {
+				throw new Error("invalid range min[" + min + "] > max[" + max + "]");
+			}
+			return false;
+		}
+
+		var length = value.length;
+
+		if ( length < min ) {
+			if ( throwError ) {
+				throw new Error("invalid min length");
+			}
+			return false;
+		}
+
+		if ( max ) {
+			if ( length > max ) {
+				if ( throwError ) {
+					throw new Error("invalid max length");
+				}
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	return {
 		isNotNull		: function (throwError) { check(validation.notnull, throwError); }
 	,	isNull			: function (throwError) { check(validation.isnull, throwError); }
@@ -143,6 +188,7 @@ function (p_value) {
 	,	isAlphanumeric 	: function (throwError) { check(validation.alphanumeric, throwError); }
 	,	isEmail 		: function (throwError) { check(validation.email, throwError); }
 	,	isUUID 			: function (throwError) { check(validation.uuid, throwError); }
+	,	len 			: checkLen
 	}
 
 }

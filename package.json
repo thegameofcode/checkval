@@ -3,6 +3,9 @@
 ,	"version": "0.0.11"
 ,	"main": "src/checkval.js"
 ,	"description": ""
+,	"scripts": {
+    	"test": "mocha test/*"
+  	}
 ,	"author": { 
 		"name" : "IGZjonasdacruz" 
 	}
@@ -10,7 +13,6 @@
 ,	"dependencies": { }
 ,	"devDependencies": {
 		"mocha": "~1.14.0"
-	,	"should": "~2.1.0"
 	}
 ,	"repository": {
 		"type": "git"

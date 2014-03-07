@@ -1,9 +1,11 @@
 
 module.exports = 
 
-function (p_value) {
+function (p_value, p_fieldName) {
 
 	'use strict';
+
+	var prefix = ( p_fieldName === undefined ) ? '' : p_fieldName + ': ';
 
 	var validation = {
 			email : {
@@ -113,23 +115,23 @@ function (p_value) {
 
 	var value = p_value;
 	function check(validation, throwError) {
-		if ( !validation.isnull && isNull(p_value) ) {
+		if ( !validation.isnull && isNull(value) ) {
 			if ( throwError ) {
-				throw new Error('value is null');
+				throw new Error(prefix + 'invalid null value');
 			}
 			return false;
 		}
 		else if ( (typeof validation.regex) === 'function') {
 		 	if ( !validation.regex(value) ) {
 				if ( throwError ) {
-					throw new Error( validation.err );	
+					throw new Error( prefix + validation.err );	
 				}
 				return false;
 			}
 		}
 		else if ( !validation.regex.test( value ) ) {
 			if ( throwError ) {
-				throw new Error( validation.err );	
+				throw new Error( prefix + validation.err );	
 			}
 			return false;
 		}
@@ -155,7 +157,7 @@ function (p_value) {
 
 		if ( max && min > max ) {
 			if ( throwError ) {
-				throw new Error("invalid range min[" + min + "] > max[" + max + "]");
+				throw new Error(prefix + "invalid range min[" + min + "] > max[" + max + "]");
 			}
 			return false;
 		}
@@ -164,7 +166,7 @@ function (p_value) {
 
 		if ( length < min ) {
 			if ( throwError ) {
-				throw new Error("invalid min length");
+				throw new Error(prefix + "invalid min length");
 			}
 			return false;
 		}
@@ -172,7 +174,7 @@ function (p_value) {
 		if ( max ) {
 			if ( length > max ) {
 				if ( throwError ) {
-					throw new Error("invalid max length");
+					throw new Error(prefix + "invalid max length");
 				}
 				return false;
 			}

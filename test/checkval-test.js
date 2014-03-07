@@ -66,4 +66,17 @@ describe('Validate len', function() {
 		isValid = checkval(value).len(false, 10, 18);
 		assert(!isValid);
 	});
+
+	it('Invalid value with fieldName', function() {
+
+		var value = "";
+
+		var err;
+		try {
+			checkval(value, 'myFieldName').len(true, 1);
+		} catch (e) {
+			err = e;
+		}
+		assert.strictEqual("myFieldName: invalid min length", err.message);
+	});
 });

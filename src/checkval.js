@@ -69,7 +69,7 @@ var CheckVal = (function() {
 			}
 
 			if ( validation.hasOwnProperty('regex') ) {
-				if ( typeof field.val !== 'string' || !validation.regex.test( field.val ) ) {
+				if ( !validation.regex.test( field.val ) ) {
 					errors.push( msg );
 				}
 			}

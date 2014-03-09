@@ -47,7 +47,7 @@ describe('Multiple validations', function() {
 		}
 		assert(isValid);
 
-		value = '-568';
+		value = -568;
 		isValid = true;
 		try {
 			checkval().add(value, 'field').numeric().len(1, 4).throw(); // valid
@@ -55,6 +55,18 @@ describe('Multiple validations', function() {
 			isValid = false;
 		}
 		assert(isValid);
+
+		value = '1234567';
+		var invalid_email = 'invalid_email';
+		try {
+			checkval().
+				add(value, 'field').numeric().len(6).
+				add(invalid_email, 'email').email().
+			throw();
+		} catch (err) {
+			isValid = false;
+		}
+		assert(!isValid);
 	});
 
 });

@@ -48,10 +48,10 @@ describe('Validate alphaNumeric', function() {
 		value = 50;
 		isValid = true;
 		try {
-			checkval().add(value, 'field').alphaNumeric().throw(); // invalid
+			checkval().add(value, 'field').alphaNumeric().throw(); // valid
 		} catch (err) {
 			isValid = false;
 		}
-		assert(!isValid);
+		assert(isValid);
 	});
 });

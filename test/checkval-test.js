@@ -47,6 +47,14 @@ describe('Multiple validations', function() {
 		}
 		assert(isValid);
 
+		value = '-568';
+		isValid = true;
+		try {
+			checkval().add(value, 'field').numeric().len(1, 4).throw(); // valid
+		} catch (err) {
+			isValid = false;
+		}
+		assert(isValid);
 	});
 
 });

@@ -173,6 +173,15 @@ var CheckVal = (function() {
 		});
 		return this;
 	};
+
+	CheckVal.prototype.numeric = function() {
+		this.notNull();
+		addValidation({
+			regex : /^-?[0-9]+$/,
+			err : 'invalid characters, only numbers'
+		});
+		return this;
+	};
 	
 	CheckVal.prototype.email = function() {
 		this.notNull();

@@ -1,181 +1,109 @@
 
-module.exports = 
-
-function (p_value, p_fieldName) {
-
+var CheckVal = (function() {
 	'use strict';
 
-	var prefix = ( p_fieldName === undefined ) ? '' : p_fieldName + ': ';
 
-	var validation = {
-			email : {
-				regex : /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/
-			,	err : 'invalid email address'
-			}
-		,
-			url : {
-				regex : /^(?!mailto:)(?:(?:https?|ftp):\/\/)?(?:\S+(?::\S*)?@)?(?:(?:(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[0-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))|localhost)(?::\d{2,5})?(?:\/[^\s]*)?$/i
-			,	err : 'invalid url address'
-			}
-		,
-			creditcard : {
-				regex : /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/
-			,	err : 'invalid credit card number'
-			}
-		,
-			isbn10 : {
-				regex : /^(?:[0-9]{9}X|[0-9]{10})$/
-			,	err : 'invalid ISBN10 number'
-			}	
-		,
-			isbn13 : {
-				regex : /^(?:[0-9]{13})$/
-			,	err : 'invalid ISBN13 number'
-			}
-		,
-			ipv4 : {
-				regex : /^(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)\.(\d?\d?\d)$/
-			,	err : 'invalid IPv4 address'
-			}
-		,
-			ipv6 : {
-				regex : /^::|^::1|^([a-fA-F0-9]{1,4}::?){1,7}([a-fA-F0-9]{1,4})$/
-			,	err : 'invalid IPv6 address'
-			}
-		,
-			uuid3 : {
-				regex : /^[0-9A-F]{8}-[0-9A-F]{4}-3[0-9A-F]{3}-[0-9A-F]{4}-[0-9A-F]{12}$/i
-			,	err : 'invalid UUID3 identifier'
-			}
-		,
-			uuid4 : {
-				regex : /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
-			,	err : 'invalid UUID4 identifier'
-			}
-		,
-			uuid5 : {
-				regex : /^[0-9A-F]{8}-[0-9A-F]{4}-5[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i
-			,	err : 'invalid UUID5 identifier'
-			}	
-		,
-			uuid : {
-				regex : /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i
-			,	err : 'invalid UUID identifier'
-			}	
-		,
-			alpha : {
-				regex : /^[a-z A-Z]+$/
-			,	err : 'invalid characters, only "a" to "Z" and spaces'
-			}
-		,
-			alphanumeric : {
-				regex : /^[a-z A-Z0-9]+$/
-			,	err : 'invalid characters, only "a" to "Z", numbers and spaces'
-			}
-		,
-			numeric : {
-				regex : /^-?[0-9]+$/
-			,	err : 'invalid characters, only numbers'
-			}
-		,
-			int : {
-				regex : /^(?:-?(?:0|[1-9][0-9]*))$/
-			,	err : 'invalid number, only integers'
-			}
-		,
-			float : {
-				regex : /^(?:-?(?:[0-9]+))?(?:\.[0-9]*)?(?:[eE][\+\-]?(?:[0-9]+))?$/
-			,	err : 'invalid number, only floats'
-			}
-		,
-			hexadecimal : {
-				regex : /^[0-9a-fA-F]+$/
-			,	err : 'invalid number, only hexadecimal'
-			}
-		,
-			hexcolor : {
-				regex : /^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/
-			,	err : 'invalid number, only color codes in hexadecimal'
-			}
-		,
-			notnull : {
-				regex : function (p_val) { return !isNull(p_val); }
-			,	err : 'invalid null value'
-			}
-		,
-			isnull : {
-				regex : function (p_val) { return isNull(p_val); }
-			,	err : 'invalid not null value'
-			}
-	}
+	//
+	// Private
+	//
 
-	function isNull(p_val){
-		return ( p_val === null ||  typeof p_val === 'undefined');
-	}
+	var self;
 
-	var value = p_value;
-	function check(validation, throwError) {
-		if ( !validation.isnull && isNull(value) ) {
-			if ( throwError ) {
-				throw new Error(prefix + 'invalid null value');
-			}
-			return false;
+	function CheckVal(args) {
+		// enforces new
+		if (!(this instanceof CheckVal)) {
+			return new CheckVal(args);
 		}
-		else if ( (typeof validation.regex) === 'function') {
-		 	if ( !validation.regex(value) ) {
-				if ( throwError ) {
-					throw new Error( prefix + validation.err );	
+		
+		self = this;
+		this.fields = [];
+	}
+
+	function addValidation (validation) {
+		var lastField = self.fields[self.fields.length - 1];
+
+		if ( !lastField ) {
+			throw {
+				name: 'Checkval Error',
+				message: 'use .add(value, name) to specify a field for the validation'
+			};
+		}
+
+		lastField.validations.push(validation);
+	}
+
+	function checkAllFields () {
+		var allErrors = [], errors;
+
+		for ( var i = 0, len = self.fields.length; i < len; i++ ) {
+			errors = getFieldErrors(self.fields[i]);
+			if ( errors.length > 0 ) {
+				allErrors.push(errors);
+			}
+		}
+
+		if ( allErrors.length > 0 ) {
+
+			// Custom Exceptions in JavaScript. Ref: The Good Parts" (great book IMO)
+			// http://books.google.es/books?id=PXa2bby0oQ0C&pg=PA32&lpg=PA32&redir_esc=y#v=onepage&q&f=false
+			throw {
+				name : 'Validation Error',
+				message : allErrors.toString()
+			};
+		}
+	}
+
+	function getFieldErrors (field) {
+		var validations = field.validations, validation, msg, errors = [];
+
+		for ( var i = 0, len = validations.length; i < len; i++ ) {
+			validation = validations[i];
+
+			
+			msg = '(' + field.name + ') ' + validation.err;
+
+			if ( validation.hasOwnProperty('fn') ) {
+				if ( !validation.fn(field.val) ) {
+					errors.push( msg );
 				}
-				return false;
+			}
+
+			if ( validation.hasOwnProperty('regex') ) {
+				if ( typeof field.val !== 'string' || !validation.regex.test( field.val ) ) {
+					errors.push( msg );
+				}
 			}
 		}
-		else if ( !validation.regex.test( value ) ) {
-			if ( throwError ) {
-				throw new Error( prefix + validation.err );	
-			}
-			return false;
-		}
-		return true;
+
+		return errors;
 	}
 
-	/**
-	 * Check if the string's length falls in a range.
-	 * 
-	 * @param  {boolean} throwError indicates if throws error
-	 * @param  {number} min        min len
-	 * @param  {number} [max]      max len (optional)
-	 * @return {boolean}
-	 */
-	function checkLen (throwError, min, max) {
+	// Validations
+	function isNotNull (val) {
+		return !isNull(val);
+	}
 
-		if ( isNull(value) ) {
-			if ( throwError ) {
-				throw new Error("value is null");
-			}
-			return false;
-		}
+	function isNull (val) {
+		return ( val === null ||  typeof val === 'undefined');
+	}
 
+	function checkLen (val, min, max) {
+		
 		if ( max && min > max ) {
-			if ( throwError ) {
-				throw new Error(prefix + "invalid range min[" + min + "] > max[" + max + "]");
-			}
-			return false;
+			throw {
+				name: 'Checkval Error',
+				message: 'invalid range min[' + min + '] > max[' + max + '], use .len(min, max)'
+			};
 		}
 
-		var length = value.length;
+		var length = val.length;
 
 		if ( length < min ) {
-			if ( throwError ) {
-				throw new Error(prefix + "invalid min length");
-			}
 			return false;
 		}
 
 		if ( max ) {
 			if ( length > max ) {
-				if ( throwError ) {
-					throw new Error(prefix + "invalid max length");
-				}
 				return false;
 			}
 		}
@@ -183,16 +111,89 @@ function (p_value, p_fieldName) {
 		return true;
 	}
 
-	return {
-		isNotNull		: function (throwError) { check(validation.notnull, throwError); }
-	,	isNull			: function (throwError) { check(validation.isnull, throwError); }
-	,	isAlpha 		: function (throwError) { check(validation.alpha, throwError); }
-	,	isAlphanumeric 	: function (throwError) { check(validation.alphanumeric, throwError); }
-	,	isEmail 		: function (throwError) { check(validation.email, throwError); }
-	,	isUUID 			: function (throwError) { check(validation.uuid, throwError); }
-	,	len 			: checkLen
-	}
-
-}
 
 
+	//
+	// Public
+	//
+
+	// Add field to check
+	CheckVal.prototype.add = function(val, name) {
+		this.fields.push({ name: name, val: val, validations: [] });
+		return this;
+	};
+
+	// Check fields
+	CheckVal.prototype.throw = function() {
+		checkAllFields();
+		return this;
+	};
+
+	// Validations
+	CheckVal.prototype.null = function() {
+		addValidation({
+			fn : isNull,
+			err : 'invalid null value'
+		});
+		return this;
+	};
+
+	CheckVal.prototype.notNull = function() {
+		addValidation({
+			fn : isNotNull,
+			err : 'invalid not null value'
+		});
+		return this;
+	};
+
+	CheckVal.prototype.len = function(min, max) {
+		addValidation({
+			fn : function (val) {
+				return checkLen(val, min, max);
+			},
+			err : 'invalid length'
+		});
+		return this;
+	};
+	
+	CheckVal.prototype.alpha = function() {
+		this.notNull();
+		addValidation({
+			regex : /^[a-zA-Z]+$/,
+			err : 'invalid characters, only "a" to "Z"'
+		});
+		return this;
+	};
+	
+	CheckVal.prototype.alphaNumeric = function() {
+		this.notNull();
+		addValidation({
+			regex : /^[a-zA-Z0-9]+$/,
+			err : 'invalid characters, only "a" to "Z" and numbers'
+		});
+		return this;
+	};
+	
+	CheckVal.prototype.email = function() {
+		this.notNull();
+		addValidation({
+			regex : /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/,
+			err : 'invalid email address'
+		});
+		return this;
+	};
+
+	CheckVal.prototype.uuid = function() {
+		this.notNull();
+		addValidation({
+			regex : /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i,
+			err : 'invalid UUID identifier'
+		});
+		return this;
+	};
+
+	return CheckVal;
+
+}());
+
+module.exports = CheckVal;

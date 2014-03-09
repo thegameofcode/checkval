@@ -63,7 +63,13 @@ var CheckVal = (function() {
 			msg = '(' + field.name + ') ' + validation.err;
 
 			if ( validation.hasOwnProperty('fn') ) {
-				if ( !validation.fn(field.val) ) {
+
+				var params = [field.val];
+				if ( validation.hasOwnProperty('params') ) {
+					params = params.concat(validation.params);
+				}
+				
+				if ( !validation.fn.apply(self, params) ) {
 					errors.push( msg );
 				}
 			}
@@ -148,9 +154,8 @@ var CheckVal = (function() {
 
 	CheckVal.prototype.len = function(min, max) {
 		addValidation({
-			fn : function (val) {
-				return checkLen(val, min, max);
-			},
+			fn : checkLen,
+			params: [min, max],
 			err : 'invalid length'
 		});
 		return this;

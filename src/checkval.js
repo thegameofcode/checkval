@@ -102,7 +102,7 @@ var CheckVal = (function() {
 			};
 		}
 
-		var length = val.length;
+		var length = (val === undefined || val === null) ? 0 : val.toString().length;
 
 		if ( length < min ) {
 			return false;

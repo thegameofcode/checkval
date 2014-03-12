@@ -3,7 +3,7 @@ var assert = require('assert');
 var checkval = require('../src/checkval');
 
 
-describe('Simple validation', function() {
+describe('# Simple validation', function() {
 
 	it('Throwing errors', function() {
 
@@ -23,7 +23,7 @@ describe('Simple validation', function() {
 });
 
 
-describe('Multiple validations', function() {
+describe('# Multiple validations', function() {
 
 	it('Throwing errors', function() {
 
@@ -69,6 +69,49 @@ describe('Multiple validations', function() {
 		assert(!isValid);
 	});
 
+
+	it('Returning boolean', function() {
+		var value = '1234567';
+		var invalid_email = 'email@example.com';
+		
+		var isValid = checkval().
+			add(value, 'field').numeric().len(6).
+			add(invalid_email, 'email').email().
+			check();
+
+		assert.strictEqual(isValid, true);
+
+		value = '1234567';
+		invalid_email = 'invalid_email';
+		
+		isValid = checkval().
+			add(value, 'field').numeric().len(6).
+			add(invalid_email, 'email').email().
+			check();
+
+		assert.strictEqual(isValid, false);
+	});
+
+
+	it('Getting errors array', function() {
+		var value = '1234567';
+		var invalid_email = 'email@example.com';
+		
+		var errors = checkval().
+			add(value, 'field').numeric().len(6).
+			add(invalid_email, 'email').email().
+			errors();
+
+		assert.strictEqual(errors.length, 0);
+
+		value = '1234567';
+		invalid_email = 'invalid_email';
+		
+		errors = checkval().
+			add(value, 'field').numeric().len(6).
+			add(invalid_email, 'email').email().
+			errors();
+
+		assert.strictEqual(errors.length, 1);
+	});
 });
-
-

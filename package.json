@@ -1,6 +1,6 @@
 {
 	"name": "checkval"
-,	"version": "0.0.12"
+,	"version": "1.0.0-SNAPSHOT"
 ,	"main": "src/checkval.js"
 ,	"description": ""
 ,	"scripts": {

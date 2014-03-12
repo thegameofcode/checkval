@@ -6,6 +6,11 @@ var CheckVal = (function() {
 	//
 	// Private
 	//
+	var CHECK_MODE = {
+		RETURN_BOOL : 'boolean',
+		THROW_ERROR : 'throw',
+		GET_ERRORS : 'errors'
+	};
 
 	var self;
 
@@ -32,7 +37,7 @@ var CheckVal = (function() {
 		lastField.validations.push(validation);
 	}
 
-	function checkAllFields () {
+	function checkAllFields (checkMode) {
 		var allErrors = [], errors;
 
 		for ( var i = 0, len = self.fields.length; i < len; i++ ) {
@@ -42,14 +47,27 @@ var CheckVal = (function() {
 			}
 		}
 
-		if ( allErrors.length > 0 ) {
+		var hasErrors = allErrors.length > 0;
 
-			// Custom Exceptions in JavaScript. Ref: The Good Parts" (great book IMO)
-			// http://books.google.es/books?id=PXa2bby0oQ0C&pg=PA32&lpg=PA32&redir_esc=y#v=onepage&q&f=false
-			throw {
-				name : 'Validation Error',
-				message : allErrors.toString()
-			};
+		switch ( checkMode ) {
+			case CHECK_MODE.THROW_ERROR:
+
+				if ( hasErrors ) {
+					// Custom Exceptions in JavaScript. Ref: The Good Parts"
+					// http://books.google.es/books?id=PXa2bby0oQ0C&pg=PA32&lpg=PA32&redir_esc=y#v=onepage&q&f=false
+					throw {
+						name : 'Validation Error',
+						message : allErrors.toString()
+					};
+				}
+
+			break;
+			case CHECK_MODE.RETURN_BOOL:
+				return !hasErrors;
+			break;
+			case CHECK_MODE.GET_ERRORS:
+				return allErrors;
+			break;
 		}
 	}
 
@@ -123,15 +141,25 @@ var CheckVal = (function() {
 	// Public
 	//
 
+
+	// Throw error if some validation fails
+	CheckVal.prototype.throw = function() {
+		checkAllFields(CHECK_MODE.THROW_ERROR);
+	};
+
+	// Returns a boolean value indicating the validation results
+	CheckVal.prototype.check = function() {
+		return checkAllFields(CHECK_MODE.RETURN_BOOL);
+	};
+
+	// Check fields and returns an array with the validation errors
+	CheckVal.prototype.errors = function() {
+		return checkAllFields(CHECK_MODE.GET_ERRORS);
+	};
+
 	// Add field to check
 	CheckVal.prototype.add = function(val, name) {
 		this.fields.push({ name: name, val: val, validations: [] });
-		return this;
-	};
-
-	// Check fields
-	CheckVal.prototype.throw = function() {
-		checkAllFields();
 		return this;
 	};
 
@@ -202,6 +230,15 @@ var CheckVal = (function() {
 		addValidation({
 			regex : /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i,
 			err : 'invalid UUID identifier'
+		});
+		return this;
+	};
+
+	CheckVal.prototype.regex = function(regex, msg) {
+		this.notNull();
+		addValidation({
+			regex : regex,
+			err : msg ? msg : 'value doesn\'t match with "' + regex.toString() + '"'
 		});
 		return this;
 	};

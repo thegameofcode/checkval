@@ -1,7 +1,7 @@
 checkval
 ========
 
-The most versatile and complete validator for Node JS and web browsers.
+The most versatile validator for Node JS and web browsers.
 
 
 ## Usage
@@ -25,14 +25,14 @@ var checkval = require('checkval');
 // 
 // Returning boolean
 // 
-if ( checkval(address).email() ) {
+if ( !checkval(address).email().check() ) {
 	console.error('invalid data');
 }
 
 // 
 // Returning boolean (multiple validations)
 // 
-if ( checkval()
+if ( !checkval()
 		.add(id, 'id').number()
 		.add(address).email().check() ) {
 

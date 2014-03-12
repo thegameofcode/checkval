@@ -5,6 +5,24 @@ var checkval = require('../src/checkval');
 
 describe('# Simple validation', function() {
 
+	it('Single validation returning boolean', function() {
+
+		var value, isValid;
+
+		value = 'test';
+		isValid = checkval(value).alpha().check();
+		assert(isValid);
+
+		value = '1234';
+		isValid = checkval(value).alpha().check();
+		assert(!isValid);
+
+		value = undefined;
+		isValid = checkval(value).null().check();
+		assert(isValid);
+
+
+	});
 	it('Throwing errors', function() {
 
 		var value, isValid;

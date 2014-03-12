@@ -14,14 +14,25 @@ var CheckVal = (function() {
 
 	var self;
 
-	function CheckVal(args) {
+	function CheckVal (value, name) {
+		var hasArgs = arguments.length > 0;
+
 		// enforces new
 		if (!(this instanceof CheckVal)) {
-			return new CheckVal(args);
+			if ( hasArgs ) {
+				return new CheckVal(value, name);
+			} else {
+				return new CheckVal();
+			}
 		}
 		
 		self = this;
 		this.fields = [];
+		
+		if ( hasArgs ) {
+			// add the parameters as the first field to validate
+			this.add(value, name);
+		}
 	}
 
 	function addValidation (validation) {
@@ -30,7 +41,7 @@ var CheckVal = (function() {
 		if ( !lastField ) {
 			throw {
 				name: 'Checkval Error',
-				message: 'use .add(value, name) to specify a field for the validation'
+				message: 'use .add(value, name) or constructor to specify a field for the validation'
 			};
 		}
 
@@ -74,11 +85,12 @@ var CheckVal = (function() {
 	function getFieldErrors (field) {
 		var validations = field.validations, validation, msg, errors = [];
 
+		var prefix = field.name ? '(' + field.name + ') ' : '';
+
 		for ( var i = 0, len = validations.length; i < len; i++ ) {
 			validation = validations[i];
 
-			
-			msg = '(' + field.name + ') ' + validation.err;
+			msg = prefix + validation.err;
 
 			if ( validation.hasOwnProperty('fn') ) {
 

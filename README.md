@@ -20,45 +20,50 @@ var checkval = require('checkval');
 
 ### Sintaxis
 
+
+Returning boolean:
+
 ```js
-
-// 
-// Returning boolean
-// 
-if ( !checkval(address).email().check() ) {
+if ( !checkval('email@example.com').email().check() ) {
 	console.error('invalid data');
 }
+```
 
-// 
-// Returning boolean (multiple validations)
-// 
+
+Returning boolean (multiple validations):
+
+```js
 if ( !checkval()
-		.add(id, 'id').number()
-		.add(address).email().check() ) {
+		.add('456457', 'id').number()
+		.add('email@example.com').email().check() ) {
 
 	console.error('invalid data');
 }
+```
 
-//
-// Throwing error
-// 
+
+Throwing an error:
+
+```js
 try {
 	
 	checkval().
-	  add(id, 'id').number().
-	  add(address, 'email').email().len(5, 200).
+	  add('456457', 'id').number().
+	  add('email@example.com', 'email').email().len(5, 200).
 	throw();
 
 } catch (err) {
 	console.error(err);
 }
+```
 
-//
-//  Getting all errors
-//  
+
+Getting all errors:
+
+```js
 var errors = checkval().
-	add(id, 'id').number().
-	add(address).email().len(5, 200).
+	add('456457', 'id').number().
+	add('email@example.com').email().len(5, 200).
 	errors();
 
 while ( errors.length > 0 ) {
@@ -79,3 +84,21 @@ while ( errors.length > 0 ) {
 - __numeric()__ : check if the string contains only numbers (0-9).
 - __regex(regex[, msg])__ : returns true if the value matches the comparison. e.g.: `checkval().add("test").regex(/^test$/).check()`
 - __uuid()__ : check if the value is a UUID (version 3, 4 or 5).
+
+
+## Running tests
+
+To run the test suite, first invoke the following command within the project folder, installing the development dependencies:
+
+```bash
+$ npm install
+```
+
+Then run the tests:
+
+```bash
+$ npm test
+```
+
+
+## License (MIT)

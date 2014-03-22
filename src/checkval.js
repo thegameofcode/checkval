@@ -222,8 +222,11 @@ var CheckVal = (function() {
 	CheckVal.prototype.numeric = function() {
 		this.notNull();
 		addValidation({
-			regex : /^-?[0-9]+$/,
-			err : 'invalid characters, only numbers'
+//			regex : /^-?[0-9]+$/,
+			fn : function (val){
+				return !isNaN( val );
+			},
+			err : 'invalid number, only integer and decimal numbers'
 		});
 		return this;
 	};

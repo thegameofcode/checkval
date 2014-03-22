@@ -45,6 +45,25 @@ describe('Validate numeric', function() {
 			isValid = false;
 		}
 		assert(isValid);
+
+		value = 123.456;
+		isValid = true;
+		try {
+			checkval().add(value, 'field').numeric().throw(); // valid
+		} catch (err) {
+			isValid = false;
+		}
+		assert(isValid);
+
+		value = 0.123456;
+		isValid = true;
+		try {
+			checkval().add(value, 'field').numeric().throw(); // valid
+		} catch (err) {
+			isValid = false;
+		}
+		assert(isValid);
+
 	});
 
 });

@@ -34,7 +34,7 @@ Returning boolean (multiple validations):
 
 ```js
 if ( !checkval()
-		.add('456457', 'id').number()
+		.add('456457', 'id').numeric()
 		.add('email@example.com').email().check() ) {
 
 	console.error('invalid data');
@@ -48,7 +48,7 @@ Throwing an error:
 try {
 	
 	checkval().
-	  add('456457', 'id').number().
+	  add('456457', 'id').numeric().
 	  add('email@example.com', 'email').email().len(5, 200).
 	throw();
 
@@ -62,7 +62,7 @@ Getting all errors:
 
 ```js
 var errors = checkval().
-	add('456457', 'id').number().
+	add('456457', 'id').numeric().
 	add('email@example.com').email().len(5, 200).
 	errors();
 
@@ -81,7 +81,7 @@ while ( errors.length > 0 ) {
 - __len(min[, max])__ : check if the value's length falls in a range.
 - __notNull()__ : check if the value is not null.
 - __null()__ : check if the value is null.
-- __numeric()__ : check if the string contains only numbers (0-9).
+- __numeric()__ : check if the string contains only a valid integer or decimal number (0-9).
 - __regex(regex[, msg])__ : returns true if the value matches the comparison. e.g.: `checkval().add("test").regex(/^test$/).check()`
 - __uuid()__ : check if the value is a UUID (version 3, 4 or 5).
 

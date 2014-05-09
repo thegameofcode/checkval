@@ -200,6 +200,15 @@ var CheckVal = (function() {
 		return this;
 	};
 	
+	CheckVal.prototype.englishChars = function() {
+		this.notNull();
+		addValidation({
+			regex : /^[a-zA-Z0-9 ,.;:\-!?$#]+$/,
+			err : 'invalid characters, only common chars "a" to "Z" and punctuation marks'
+		});
+		return this;
+	};
+	
 	CheckVal.prototype.alpha = function() {
 		this.notNull();
 		addValidation({

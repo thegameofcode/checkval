@@ -75,10 +75,9 @@ var CheckVal = (function() {
 			break;
 			case CHECK_MODE.RETURN_BOOL:
 				return !hasErrors;
-			break;
+				
 			case CHECK_MODE.GET_ERRORS:
 				return allErrors;
-			break;
 		}
 	}
 
@@ -222,11 +221,28 @@ var CheckVal = (function() {
 	CheckVal.prototype.numeric = function() {
 		this.notNull();
 		addValidation({
-//			regex : /^-?[0-9]+$/,
 			fn : function (val){
 				return !isNaN( val );
 			},
 			err : 'invalid number, only integer and decimal numbers'
+		});
+		return this;
+	};
+	
+	CheckVal.prototype.integer = function() {
+		this.notNull();
+		addValidation({
+			regex : /^-?[0-9]+$/,
+			err : 'invalid characters, only integer'
+		});
+		return this;
+	};
+	
+	CheckVal.prototype.positiveInt = function() {
+		this.notNull();
+		addValidation({
+			regex : /^\+?[0-9]+$/, // include 0 for index validation
+			err : 'invalid characters, only positive integer'
 		});
 		return this;
 	};

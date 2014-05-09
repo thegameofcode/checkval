@@ -81,6 +81,8 @@ while ( errors.length > 0 ) {
 - __len(min[, max])__ : check if the value's length falls in a range.
 - __notNull()__ : check if the value is not null.
 - __null()__ : check if the value is null.
+- __integer()__ : check if the value is an integer (e.g. 345, -81)
+- __positiveInt()__ : check if the value is a positive integer (e.g. 345)
 - __numeric()__ : check if the string contains only a valid integer or decimal number (0-9).
 - __regex(regex[, msg])__ : returns true if the value matches the comparison. e.g.: `checkval().add("test").regex(/^test$/).check()`
 - __uuid()__ : check if the value is a UUID (version 3, 4 or 5).

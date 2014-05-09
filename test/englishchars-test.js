@@ -9,7 +9,7 @@ describe('Validate english chars', function() {
 
 		var value, isValid;
 
-		value = '#1234 lorem, ipsum $!';
+		value = 'abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789 +-.,!@#$%^&*()[]{};\/|<>"\'';
 		isValid = true;
 		try {
 			checkval().add(value, 'field').englishChars().throw(); // valid

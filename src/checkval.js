@@ -216,7 +216,7 @@ var CheckVal = (function() {
 	CheckVal.prototype.englishChars = function() {
 		this.notNull();
 		addValidation({
-			regex : /^[a-zA-Z0-9 _+\-.,?!@#$%^&*()[]{};<>"'|\/\\]+$/,
+			regex : /^[a-zA-Z0-9 _+\-.,?!@#$%^&*()\[\]{};<>"'|\/\\]+$/,
 			err : 'invalid characters, only common chars "a" to "Z" and punctuation marks'
 		});
 		return this;

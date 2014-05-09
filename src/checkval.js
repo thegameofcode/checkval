@@ -146,6 +146,10 @@ var CheckVal = (function() {
 		return true;
 	}
 
+	function inArray (val, values) {
+		return values.indexOf(val) !== -1;
+	}
+
 
 
 	//
@@ -196,6 +200,15 @@ var CheckVal = (function() {
 			fn : checkLen,
 			params: [min, max],
 			err : 'invalid length'
+		});
+		return this;
+	};
+
+	CheckVal.prototype.inArray = function(values) {
+		addValidation({
+			fn : inArray,
+			params: [values],
+			err : 'invalid value, not in array of allowed values'
 		});
 		return this;
 	};

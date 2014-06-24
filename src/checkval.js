@@ -251,6 +251,17 @@ var CheckVal = (function() {
 		return this;
 	};
 	
+	CheckVal.prototype.date = function() {
+		this.notNull();
+		addValidation({
+			fn : function (val){
+				return !isNaN( Date.parse(val) );
+			},
+			err : 'invalid date'
+		});
+		return this;
+	};
+
 	CheckVal.prototype.integer = function() {
 		this.notNull();
 		addValidation({

@@ -84,6 +84,7 @@ while ( errors.length > 0 ) {
 - __integer()__ : check if the value is an integer (e.g. 345, -81)
 - __positiveInt()__ : check if the value is a positive integer (e.g. 345)
 - __numeric()__ : check if the string contains only a valid integer or decimal number (0-9).
+- __date()__ : check if the string is a valid date.
 - __regex(regex[, msg])__ : returns true if the value matches the comparison. e.g.: `checkval().add("test").regex(/^test$/).check()`
 - __uuid()__ : check if the value is a UUID (version 3, 4 or 5).
 - __inArray(values)__ : check if the value is in a array of allowed values.

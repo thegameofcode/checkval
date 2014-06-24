@@ -1,32 +1,32 @@
 {
-	"name": "checkval"
-,	"version": "0.0.1"
-,	"main": "src/checkval.js"
-,	"description": "The most versatile validator for Node JS and web browsers."
-,	"scripts": {
-    	"test": "mocha test/*"
-  	}
-,	"author": { 
-		"name" : "IGZjonasdacruz" 
-	}
-,	"licenses": [
-	    {
-	      "type": "MIT",
-	      "url": "https://github.com/IGZjonasdacruz/checkval/blob/master/LICENSE-MIT"
-	    }
-  	]
-,	"dependencies": { }
-,	"devDependencies": {
-		"mocha": "~1.14.0",
-		"grunt-contrib-jshint": "~0.6.4",
-		"grunt": "~0.4.3"
-	}
-,	"repository": {
-		"type": "git"
-	,	"url": "git://github.com/IGZjonasdacruz/checkval.git"
-	}
-,	"bugs" : {
-		"url": "https://github.com/IGZjonasdacruz/checkval/issues"
-	}
-,	"homepage": "https://github.com/IGZjonasdacruz/checkval"
+  "name": "checkval",
+  "version": "0.0.2",
+  "main": "src/checkval.js",
+  "description": "The most versatile validator for Node JS and web browsers.",
+  "scripts": {
+    "test": "mocha test/*"
+  },
+  "author": {
+    "name": "IGZjonasdacruz"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/IGZjonasdacruz/checkval/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "~1.14.0",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt": "~0.4.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/IGZjonasdacruz/checkval.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IGZjonasdacruz/checkval/issues"
+  },
+  "homepage": "https://github.com/IGZjonasdacruz/checkval"
 }

@@ -10,6 +10,24 @@ describe('Validate numeric', function() {
 
 		var value, isValid;
 
+		value = 0;
+		isValid = true;
+		try {
+			checkval().add(value, 'field').numeric().throw(); // valid
+		} catch (err) {
+			isValid = false;
+		}
+		assert(isValid);
+
+		value = "0";
+		isValid = true;
+		try {
+			checkval().add(value, 'field').numeric().throw(); // valid
+		} catch (err) {
+			isValid = false;
+		}
+		assert(isValid);
+
 		value = -1234;
 		isValid = true;
 		try {

@@ -261,6 +261,17 @@ var CheckVal = (function() {
 		});
 		return this;
 	};
+	
+	CheckVal.prototype.bool = function() {
+		this.notNull();
+		addValidation({
+			fn : function (val){
+				return val === true || val === false;
+			},
+			err : 'invalid boolean'
+		});
+		return this;
+	};
 
 	CheckVal.prototype.integer = function() {
 		this.notNull();

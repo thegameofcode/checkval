@@ -87,6 +87,7 @@ while ( errors.length > 0 ) {
 - __date()__ : check if the string is a valid date.
 - __regex(regex[, msg])__ : returns true if the value matches the comparison. e.g.: `checkval().add("test").regex(/^test$/).check()`
 - __uuid()__ : check if the value is a UUID (version 3, 4 or 5).
+- __bool()__ : check if the value is a boolean (strict)
 - __inArray(values)__ : check if the value is in a array of allowed values.
 
 

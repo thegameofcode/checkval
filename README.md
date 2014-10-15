@@ -33,9 +33,9 @@ if ( !checkval('email@example.com').email().check() ) {
 Returning boolean (multiple validations):
 
 ```js
-if ( !checkval()
-		.add('456457', 'id').numeric()
-		.add('email@example.com').email().check() ) {
+if ( !checkval().
+		add('456457', 'id').numeric().len(5, 10).
+		add('email@example.com').email().check() ) {
 
 	console.error('invalid data');
 }
@@ -48,8 +48,8 @@ Throwing an error:
 try {
 	
 	checkval().
-	  add('456457', 'id').numeric().
-	  add('email@example.com', 'email').email().len(5, 200).
+	  add('456457', 'id').numeric().len(5, 10).
+	  add('email@example.com', 'email').email().
 	throw();
 
 } catch (err) {
@@ -62,8 +62,8 @@ Getting all errors:
 
 ```js
 var errors = checkval().
-	add('456457', 'id').numeric().
-	add('email@example.com').email().len(5, 200).
+	add('456457', 'id').numeric().len(5, 10).
+	add('email@example.com').email().
 	errors();
 
 while ( errors.length > 0 ) {
@@ -88,6 +88,7 @@ while ( errors.length > 0 ) {
 - __regex(regex[, msg])__ : returns true if the value matches the comparison. e.g.: `checkval().add("test").regex(/^test$/).check()`
 - __uuid()__ : check if the value is a UUID (version 3, 4 or 5).
 - __bool()__ : check if the value is a boolean (strict)
+- __array()__ : check if the value is in a valid array.
 - __inArray(values)__ : check if the value is in a array of allowed values.
 
 

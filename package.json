@@ -1,6 +1,6 @@
 {
   "name": "checkval",
-  "version": "0.0.3",
+  "version": "0.1.0-SNAPSHOT",
   "main": "src/checkval.js",
   "description": "The most versatile validator for Node JS and web browsers.",
   "scripts": {

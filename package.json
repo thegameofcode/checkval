@@ -1,20 +1,18 @@
 {
   "name": "checkval",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "src/checkval.js",
   "description": "The most versatile validator for Node JS and web browsers.",
   "scripts": {
     "test": "mocha test/*"
   },
   "author": {
-    "name": "IGZjonasdacruz"
+    "name": "Jonas Da Cruz"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/IGZjonasdacruz/checkval/blob/master/LICENSE-MIT"
-    }
+  "contributors": [
+    "Angel Sanchez Roa"
   ],
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "mocha": "~1.14.0",
@@ -23,10 +21,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/IGZjonasdacruz/checkval.git"
+    "url": "git://github.com/thegameofcode/checkval.git"
   },
   "bugs": {
-    "url": "https://github.com/IGZjonasdacruz/checkval/issues"
+    "url": "https://github.com/thegameofcode/checkval/issues"
   },
-  "homepage": "https://github.com/IGZjonasdacruz/checkval"
+  "homepage": "https://github.com/thegameofcode/checkval"
 }
